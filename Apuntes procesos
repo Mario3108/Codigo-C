@@ -29,4 +29,36 @@
  -WNOHANG: wait no hang, ver si ha acabado un hijo si quedarme bloqueado
     waitpid(pid_t pid, int* status, int options -> WNOHANG)
 
--
+-execv() -> v de vector, se va a coger los argumentos del argv de C y se va a ejecutar en el path que se
+            le pase.
+-execvp() -> v de vector y p de path de la shell, se usa el path.
+-execlp() ->se usa el path y una lista de argumentos uno por uno en vez de con argv[].
+
+
+
+
+-Los procesos se consideran independientes si no se pueden ver afectados por otros procesos,
+ en caso contrario son cooperativos.
+-IPC->comunicación entre procesos.
+-Tipos de comunicaciones:
+  -Señales. tipo de comunicación estandar que informa a otro proceso de un evento.
+  -Semáforos: tipo de comunicación que permite acceder a recursos compartidos, forma de proteger
+              variables compartidas cuando estan siendo usasdas por uno de los procesos.
+
+-Con pipes conseguimos que un proceso hijo le pase información al proceso padre.
+-Memoria compartida: zona de memoria a la que ambos procesos pueden acceder.
+-Paso de mensajes: sin memoria compartida se mandan mensajes de un proceso a otro.
+
+
+-Señales: Mecanismo de sincronizacion entre procesos, informan de que ha sucedido un evento o un error
+ muy parecido a interrupciones. El proceso que la recibe puede elegir si ignorarla o no, si decide actuar
+ llama a la rutina de tratamiento. Están definidas en signal.h, algunas son reprogramables y otras no,
+
+-Ctrl+Z es mandar una señal SIGSTOP al proceso, la cuanl no es ignorable, el proceso debe detenerse.
+
+
+-Como se meten señales en codigo:
+    -signal(int signum, sighandler_t handler)
+      -signum el numero de la señal (9 = muerte total)
+      -handler: manejador de la seña, cada vez que se llame a esa señal, se llamará
+        a la función de ese manejador.
