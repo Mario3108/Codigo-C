@@ -57,8 +57,12 @@
 -Ctrl+Z es mandar una señal SIGSTOP al proceso, la cuanl no es ignorable, el proceso debe detenerse.
 
 
--Como se meten señales en codigo:
+-Como se meten señales en codigo signal(2), llamada al sistema:
     -signal(int signum, sighandler_t handler)
       -signum el numero de la señal (9 = muerte total)
       -handler: manejador de la seña, cada vez que se llame a esa señal, se llamará
         a la función de ese manejador.
+    -Es nua llamada al sistema.
+    -Para mandar señales se usara kill(2) llamada al sistema, kill(1) mandato del usuario.
+
+-El fork() se debe hacer despues del signal, de la redireccion de entrada/salida.
