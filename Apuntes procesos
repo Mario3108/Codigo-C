@@ -1,0 +1,32 @@
+-Un proceso no es solo el código del programa, también es por donde voy en el código,
+ cuanto valen los registros, también es una imagen de memoria:
+ el espacio en memoria donde se ubica el proceso.
+-Proceso listo: ya esta preparado para ejecutar pero no puede todavía
+-Cuando un proceso esta en bloqueo esperando, y recibe el imput necesario pasa a estar en listo.
+-Un proceso sabe quien es el usuario que lo esta ejecutando, el estado del proceso,
+ el estado del procesador, el tiempo que lleva ejecutado, prioridad, info sobre gestion de memoria,
+ información de entrada/salida: descriptores de ficheros abiertos(esto se hereda de padres a hijos,
+ se hereda tal y como yo lo abrí), toda esta información en un bloque (bloque de control de proceso PCB).
+-Tabla de procesos: cada elemento de esta tabla es un PCB
+-Tabla de ficheros abiertos del sistema: cada proceso tiene su tabla de descriptores de ficheros.
+-Tabla de memoria: que fragmentos de memoria se asocian a que procesos.
+-Planificación necesaria para poder ejecutar varios procesos al mismo tiempo.
+-Cola de trabajos con todos los procesos del sistema.
+-Cola de procesos preparados: se almacenan los PCB.
+-Colas de dispositivos: procesos a la espera de alguna operación de E/S.
+-A lo largo de la vida de un proceso se puede ir moviendo de una cola a otra.
+-Cada proceso tiene su identificador único(Pid)
+-Cuando un proceso crea un hijo pueden ejecutarse al mismo tiempo o dejar de
+ ejecutar uno para que se ejecute el otro.
+-El proceso puede enviar información de finalización a su padre. En algún momento el padre tendrá
+ que quedarse esperando a que el hijo acabe y ahí recibirá su información de salida.
+-Muchos sistemas operativos no permiten que si muere el proceso padre se sigan ejecutando sus hijos.
+-exec()->Hace que un proceso se "convierta en otro"
+-Cuando se clona un proceso, el PC apunta al mismo sitio tanto en el padre como en el hijo. Los descriptores
+ de ficheros se heredan de padre a hijo.
+-Llamada a wait(), bloquea al padre hasta que finaliza un proceso hijo, en status se tiene el status
+ del hijo cuando termina.
+ -WNOHANG: wait no hang, ver si ha acabado un hijo si quedarme bloqueado
+    waitpid(pid_t pid, int* status, int options -> WNOHANG)
+
+-
