@@ -16,12 +16,12 @@ int main(int argc, char const *argv[]) {
   pid=fork();
 
   if(pid < 0){
-      fprintf(stderr, "Fallo en el fork)().\n%s\n", stderr(errno));
+      fprintf(stderr, "Fallo en el fork)().\n %s\n", strerror(errno));
       exit(1);
   }else if (pid == 0){
     execvp(argv[1], argv + 1);
 
-    printf("Error al ejecutar el comando: %s\n", stderror(errno));
+    printf("Error al ejecutar el comando: %s\n", strerror(errno));
     exit(1);
   }else{
     wait(&status);
