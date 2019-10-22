@@ -41,7 +41,7 @@
  en caso contrario son cooperativos.
 -IPC->comunicación entre procesos.
 -Tipos de comunicaciones:
-  -Señales. tipo de comunicación estandar que informa a otro proceso de un evento.
+  -Señales. tipo de comunicación estandar que informa a otro proceso de un evento. 
   -Semáforos: tipo de comunicación que permite acceder a recursos compartidos, forma de proteger
               variables compartidas cuando estan siendo usasdas por uno de los procesos.
 
