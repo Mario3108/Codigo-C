@@ -26,8 +26,8 @@ int main(int argc, char const *argv[]) {
   }else{
     wait(&status);
 
-    if (WIFESTATUS(status) != 0) {
-      if(WIFEXITED(status) != 0){
+    if (WIFEXITED(status) != 0) {
+      if(WEXITSTATUS(status) != 0){
         printf("El comando  no se ejecuto correctamente\n" );
       }
     }
