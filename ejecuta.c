@@ -7,32 +7,32 @@
 int main(int argc, char const *argv[]) {
   pid_t pid;
   int status;
+  char * mandato;
+  char argumentos[1024];
 
-  if (argc < 2) {
-    fprintf(stderr, "Uso: %s comando y opciones\n", argv[0]);
-    return 1;
+  if(argc < 2){
+    fprintf(stderr, "Error: introducir mandato\n" );
+  }else{
+    mandato = argv[1];
+    
   }
 
-  pid=fork();
-
+  pid = fork();
   if(pid < 0){
-      fprintf(stderr, "Fallo en el fork)().\n %s\n", strerror(errno));
-      exit(1);
-  }else if (pid == 0){
-    execvp(argv[1], argv + 1);
-
-    printf("Error al ejecutar el comando: %s\n", strerror(errno));
+    fprintf(stderr, "Ha habido un error con la creacion del proceso hijo\n", strerror(errno));
     exit(1);
+  }else if(pid == 0){
+    execvp(mandato, argv + 1);
+    printf("Error al ejecutar el comando: %s\n", strerror(errno));
   }else{
     wait(&status);
-
-    if (WIFEXITED(status) != 0) {
+    if(WIFEXITED(status) != 0){
       if(WEXITSTATUS(status) != 0){
-        printf("El comando  no se ejecuto correctamente\n" );
+        fprintf(stderr, "El comando no se ejecuto correctamente: %s\n", strerror(errno));
       }
-    }
-    exit(0);
 
+      exit(1);
+    }
   }
 
   return 0;
