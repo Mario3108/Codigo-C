@@ -43,7 +43,7 @@ char * cmd2path(char * cmd){
 
   tokens = strtok(str, ":");
   while (tokens) {
-    printf("%s %s\n",tokens, str);
+    //printf("%s %s\n",tokens, str);
     tokens = strtok(NULL, ":");
     if(tokens != NULL){
       strcpy(buf, tokens);
