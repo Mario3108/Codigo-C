@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 #include "parser.h"
 #include <signal.h>
- 
+
 char buf[1024];
 char buf2[1024];
 char buf3[1024];
@@ -15,32 +15,32 @@ pid_t pid1;
 int pipe_hijo[2];
 int pipe_padre[2];
 FILE * p_lectura, * p_escri,* fich_lectura_padre;
- 
+
 void manejador_hijo(int sig){
     if (sig == SIGUSR1){
         close(pipe_hijo[0]);
-        dup2(pipe_hijo[1],1);//cambio la salida estandar al pipe[1]. 0 entrada estandar 1 salida estandar           
+        dup2(pipe_hijo[1],1);//cambio la salida estandar al pipe[1]. 0 entrada estandar 1 salida estandar
         if ( execvp(line->commands[0].argv[0],line->commands[0].argv) < 0 ){
             printf("mandato: No se encuentra el mandato\n");
         }
-         
+
     }else if(sig ==SIGUSR2){
         close(pipe_hijo[0]);
         dup2(pipe_hijo[1],1);
         if(execvp(line->commands[0].argv[0],line2->commands[0].argv) < 0 ){
             printf("mandato: No se encuentra el mandato\n");
-        }       
+        }
     }
- 
+
 }
- 
- 
- 
+
+
+
 int main (void){
     printf("msh> ");
     signal (SIGUSR2,manejador_hijo);
     signal (SIGUSR1,manejador_hijo);
- 
+
     while(fgets(buf, 1024, stdin)){
              line = tokenize(buf);
          if(line == NULL){
@@ -58,7 +58,7 @@ int main (void){
             fclose(p_escri);
          }
          if(line-> redirect_input!= NULL){
-            p_lectura = fopen(line->redirect_input, "r+");   
+            p_lectura = fopen(line->redirect_input, "r+");
             close(pipe_hijo[1]);//el hijo no recibe
             fgets(buf3,1024,p_lectura);
             line2 = tokenize(buf3);
@@ -69,6 +69,6 @@ int main (void){
             fputs(buf2,p_escri);
             fclose(p_escri);
          }
-         printf("msh> ");    
+         printf("msh> ");
     }
 }
