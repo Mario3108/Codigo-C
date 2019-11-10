@@ -46,7 +46,6 @@ int main(int argc, char const *argv[]) {
       dup(pipe_h2_h3[1]);
       printf("Buenas, aqui el hijo 2.\n");
       execlp("tr", "tr", "\"d\"", "\"D\"", NULL);
-      close(fd[0]);
       exit(0);
 
     }else{//Padre
