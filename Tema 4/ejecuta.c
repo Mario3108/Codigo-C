@@ -14,7 +14,7 @@ int main(int argc, char const *argv[]) {
     fprintf(stderr, "Error: introducir mandato\n" );
   }else{
     mandato = argv[1];
-    
+
   }
 
   pid = fork();
