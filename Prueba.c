@@ -24,7 +24,7 @@ int **pipes;
 
 //TODO:
 // -mandato cd
-// -redireccionamiento entrada/salida con mas de un mandato
+// -redireccionamiento de error con mas de un mandato
 // -Cambiar el execvp a una señal (si se puede, si no pues fuck it)
 // -estructura de procesos para el jobs
 
@@ -100,6 +100,7 @@ int main(void) {
             pipes[i] = (int *) malloc (2*sizeof(int));
             pipe(pipes[i]);
         }
+        pipe(fd);
 
 
         for (i=0; i<line->ncommands; i++) {
@@ -108,7 +109,15 @@ int main(void) {
             fprintf(stderr, "Error al crear el hijo\n");
           }else if (pid == 0){
             if(i == 0){
-              printf("Primer mandato\n");
+              if (line->redirect_input != NULL) {
+                  printf("redirección de entrada: %s\n", line->redirect_input);
+                  close(fd[1]);
+                  close(STDIN_FILENO);
+                  p_p = fopen(line->redirect_input, "r");
+                  dup2(p_p, fd[0]);
+                  close(fd[0]);
+
+              }
               for(int c = 1; c < line->ncommands-1; c++){
                 close(pipes[c][0]);
                 close(pipes[c][1]);
@@ -121,6 +130,7 @@ int main(void) {
             }
             if (i > 0 && i < line->ncommands-1){
               sleep(0.5);
+
               printf("En el medio\n");
               for(int c = 0; c < line->ncommands-1; c++){
                 if(c != i && c != i-1){
@@ -141,6 +151,24 @@ int main(void) {
             }
             if(i == line->ncommands-1){
               sleep(0.5);
+              if (line->redirect_output != NULL) {
+
+                  printf("redireccion de salida: %s\n", line->redirect_output);
+                  close(fd[0]);
+                  close(STDOUT_FILENO);
+                  p_p = fopen(line->redirect_output, "w");
+                  dup2(p_p, fd[1]);
+                  close(fd[1]);
+
+              }
+              if (line->redirect_error != NULL) {
+                      printf("redireccion de error: %s\n", line->redirect_error);
+                      close(fd[0]);
+                      close(STDERR_FILENO);
+                      p_p = fopen(line->redirect_error, "w");
+                      dup2(p_p, fd[1]);
+                      close(fd[1]);
+              }
               printf("Ultimo mandato\n");
               for(int c = 0; c<line->ncommands-2; c++){
                 close(pipes[c][0]);
