@@ -37,7 +37,7 @@ int main(void) {
 
 	if(line->ncommands == 1 && strcmp(line->commands[0].argv[0],"cd")==0){
 		if(chdir(line->commands[0].argv[1]) != 0){
-	      fprintf(stderr, "mensaje de error: %s\n", strerror(errno));
+	      fprintf(stderr, "Error: %s\n", strerror(errno));
 	    }
 	} else if(line->ncommands == 1){//Caso de que solo haya un mandato
         pipe(fd);
