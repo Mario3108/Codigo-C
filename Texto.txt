@@ -1,13 +1,5 @@
-Ultimo mandato
-ApuntEs procEsos
-archivo
-LibparsEr_64.a
-LibparsEr.a
-MinishELL_stEvEn
-MinishELL_stEvEn.c
-parsEr.h
-PruEba
-PruEba.c
-TEma 3
-TEma 4
-TExto.txt
+un poquito
+de texto
+pa los chavale
+ahi lo llevas
+soy Charo, salgo
