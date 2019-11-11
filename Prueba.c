@@ -13,7 +13,6 @@
 
 //TODO:
 // -mandato cd
-// -Cambiar el execvp a una señal (si se puede, si no pues fuck it)
 // -estructura de procesos para el jobs
 
 int main(void) {
@@ -36,7 +35,11 @@ int main(void) {
       continue;
     }
 
-      if(line->ncommands == 1){//Caso de que solo haya un mandato
+	if(line->ncommands == 1 && strcmp(line->commands[0].argv[0],"cd")==0){
+		if(chdir(line->commands[0].argv[1]) != 0){
+	      fprintf(stderr, "mensaje de error: %s\n", strerror(errno));
+	    }
+	} else if(line->ncommands == 1){//Caso de que solo haya un mandato
         pipe(fd);
         pid = fork();
 
