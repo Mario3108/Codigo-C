@@ -24,12 +24,13 @@ int main(void) {
 	FILE *p_p;
 	int *hijos;
 	int **pipes;
-
+    
 
 	printf("msh> ");
 	while (fgets(buf, 1024, stdin)) {
     line = tokenize(buf);
 
+    
 
     if (line==NULL) {
       continue;
@@ -80,6 +81,7 @@ int main(void) {
   		    if (line->background) {
   			       printf("comando a ejecutarse en background\n");
   		    }
+            //Comanetario
 		  if(pid < 0){
 			  fprintf(stderr, "Error en la creacion del proceso hijo\n");
 		  }else if(pid == 0){
