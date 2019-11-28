@@ -12,8 +12,8 @@
 
 
 //TODO:
-// -mandato cd
 // -estructura de procesos para el jobs
+// -Revisar mensajes y casos de error
 
 int main(void) {
 	char buf[1024];
